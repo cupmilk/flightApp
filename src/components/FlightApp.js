@@ -20,7 +20,7 @@ const FlightApp = () => {
   return (
     <>
       <section>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white">
           <div className="bg-white-400 w-auto h-auto border-4 border-blue-100 pb-10 mt-5 px-5 rounded-lg text-black sm:w-full md:w-4/5 md:mx-auto lg:w-2/5 lg:mx-auto  ">
             {/* header section */}
             <div className="h-24 flex justify-center items-center ">
@@ -342,6 +342,7 @@ const FlightApp = () => {
                 value="Search"
                 className="w-full h-16 font-bold text-xl text-white border border-blue-900 uppercase  rounded-lg bg-blue-300 hover:bg-violet-700"
               />
+              <button aria-hidden="true">new button</button>
             </div>
           </div>
         </form>
