@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Article from "./components/Article";
 import { useState } from "react";
+import Creat from "./components/Creat";
 
 //상용자 정의 태그 = component
 
@@ -16,12 +17,36 @@ function App() {
   // const setMode = _mode[1];
   const [mode, setMode] = useState("WELCOME");
   const [id, setId] = useState(null);
-
-  const topics = [
+  const [topics, setTopics] = useState([
     { id: 1, title: "html", body: "html is..." },
     { id: 2, title: "css", body: "css is..." },
     { id: 3, title: "js", body: "js is..." },
-  ];
+  ]);
+  const [nextId, setNextId] = useState(4);
+
+  const handleOnCreate = (_title, _body) => {
+    const newTopic = { id: nextId, title: _title, body: _body };
+    const newTopics = [...topics];
+    newTopics.push(newTopic);
+    setTopics(newTopics);
+    setMode("READ");
+    setId(nextId);
+    setNextId(nextId + 1);
+  };
+
+  const handleChangeMode = () => {
+    setMode("WELCOME");
+  };
+
+  const hadleNav = (id) => {
+    setMode("READ");
+    setId(id);
+  };
+
+  const createButton = (e) => {
+    e.preventDefault();
+    setMode("create");
+  };
 
   let content = null;
   if (mode === "WELCOME") {
@@ -44,22 +69,18 @@ function App() {
     // });
 
     content = <Article title={title} body="Hello,read"></Article>;
+  } else if (mode === "create") {
+    content = <Creat onCreate={handleOnCreate}></Creat>;
   }
-
-  const handleChangeMode = () => {
-    setMode("WELCOME");
-  };
-
-  const hadleNav = (id) => {
-    setMode("READ");
-    setId(id);
-  };
 
   return (
     <div>
       <Header title="WEB" onChangeMode={handleChangeMode}></Header>
       <Nav topics={topics} onChangeMode={hadleNav}></Nav>
       {content}
+      <a href="/create" onClick={createButton}>
+        create
+      </a>
     </div>
   );
 }
